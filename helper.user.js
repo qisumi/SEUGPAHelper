@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name SEUGPAHelper
 // @description 帮助你快速计算绩点
-// @Version 0.0.1
+// @version 0.0.1
 // @match *://ehall.seu.edu.cn/jwapp/sys/cjcx/*
 // @run-at document-end
 // ==/UserScript==
