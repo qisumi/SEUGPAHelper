@@ -58,7 +58,7 @@
                     AllLessons = document.querySelector('#contentdqxq-index-table').children[1].firstChild.firstChild.children[1].children;
                 }
                 for (let i = 0; i < totalNum; i++) {
-                    if (judgeLesson(AllLessons[i]) && AllLessons[i].children[9].innerHTML !== '通过' &&AllLessons[i].children[9].innerHTML !== '不通过') {
+                    if (judgeLesson(AllLessons[i]) && AllLessons[i].children[9].innerHTML !== '通过' && AllLessons[i].children[9].innerHTML !== '不通过') {
                         calclulatedNum++;
                         let credit = parseFloat(AllLessons[i].children[7].firstChild.innerHTML);
                         let grade = getGrade(AllLessons[i].children[9].innerHTML);
@@ -70,9 +70,12 @@
                 }
                 AVGgrade = totalGrade / totalCredits;
                 AVGgpa = totalGPA / totalCredits;
-                alert(`共查询到 ${totalNum}门课程\n计算了 ${calclulatedNum}门课程\n已获总学分为 ${totalCredits}\n百分制均分为 ${AVGgrade}\n4.8制度绩点为 ${AVGgpa}`);
+                //alert(`共查询到 ${totalNum}门课程\n计算了 ${calclulatedNum}门课程\n已获总学分为 ${totalCredits}\n百分制均分为 ${AVGgrade}\n4.8制度绩点为 ${AVGgpa}`);
+                let gpaText = document.createElement('div');
+                gpaText.appendChild(document.createTextNode(`共查询到 ${totalNum}门课程,   计算了 ${calclulatedNum}门课程,   已获总学分为 ${totalCredits},   百分制均分为 ${AVGgrade},   4.8制度绩点为 ${AVGgpa}`));
+                if (document.querySelector('.jqx-tabs-title-container').children.length == 3) { document.querySelector('.jqx-tabs-title-container').appendChild(gpaText); }
+                else {document.querySelector('.jqx-tabs-title-container').children[3].innerHTML=`共查询到 ${totalNum}门课程,   计算了 ${calclulatedNum}门课程,   已获总学分为 ${totalCredits},   百分制均分为 ${AVGgrade},   4.8制度绩点为 ${AVGgpa}`}
             }
-
             let calcBtn = document.createElement('button');
             calcBtn.appendChild(document.createTextNode("计算绩点"));
             calcBtn.onclick = calclulate;
@@ -80,5 +83,4 @@
         }
     }
     loadMyScript();
-
 })();
