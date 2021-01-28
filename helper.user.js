@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name SEUGPAHelper
 // @description 帮助你快速计算绩点
-// @version 0.0.1
+// @version 0.1.0
 // @match *://ehall.seu.edu.cn/jwapp/sys/cjcx/*
 // @run-at document-end
 // ==/UserScript==
@@ -10,7 +10,7 @@
     function loadMyScript() {
         if (document.querySelector('.bh-advancedQuery-totalNum') === null || document.querySelector('.bh-advancedQuery-totalNum').firstChild === null) { setTimeout(loadMyScript, 500); }
         else {
-            alert('使用方法: 本插件只能计算已有的所有课程绩点（两学期或全部），若想要计算所有课程绩点，请选择务必全部，并务必在右下角选择每页显示100。\n\n使用技巧：在上一步基础上，使用高级搜索，筛选掉所有任选课程，避免课程数超出100导致无法计算。\n\n本插件不计算绩点的课程有军训、中西哲学智慧、中国戏曲艺术、吴健雄学院CPP课，所有任选课，所有通过/不通过课程')
+            alert('使用方法: 本插件计算所有列表中显示出来的绩点。若想要计算所有课程绩点，请选择务必全部，并务必在右下角选择每页显示100。\n\n使用技巧：在上一步基础上，使用高级搜索，筛选掉所有任选课程，避免课程数超出100导致无法计算。\n\n本插件不计算绩点的课程有军训、中西哲学智慧、中国戏曲艺术、吴健雄学院CPP课，所有任选课，所有通过/不通过课程')
             function getGrade(grade) {
                 if (grade === '优') return 95;
                 if (grade === '良') return 85;
@@ -57,7 +57,7 @@
                 else {
                     AllLessons = document.querySelector('#contentdqxq-index-table').children[1].firstChild.firstChild.children[1].children;
                 }
-                for (let i = 0; i < totalNum; i++) {
+                for (let i = 0; i < AllLessons.length; i++) {
                     if (judgeLesson(AllLessons[i]) && AllLessons[i].children[9].innerHTML !== '通过' && AllLessons[i].children[9].innerHTML !== '不通过') {
                         calclulatedNum++;
                         let credit = parseFloat(AllLessons[i].children[7].firstChild.innerHTML);
