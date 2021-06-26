@@ -4,6 +4,7 @@
 // @version 0.1.0
 // @match *://ehall.seu.edu.cn/jwapp/sys/cjcx/*
 // @run-at document-end
+// @namespace https://greasyfork.org/users/730743
 // ==/UserScript==
 (function () {
     'use strict';
@@ -57,6 +58,20 @@
                 else {
                     AllLessons = document.querySelector('#contentdqxq-index-table').children[1].firstChild.firstChild.children[1].children;
                 }
+                let htotalGPA=0,htotalGrade=0,htotalCredits=0;
+                for (let i = 0; i < AllLessons.length; i++) {
+                    if(AllLessons[i].children[9].innerHTML !== '通过' && AllLessons[i].children[9].innerHTML !== '不通过' && !isNaN(getGrade(AllLessons[i].children[9].innerHTML))){
+                        calclulatedNum++;
+                        let credit = parseFloat(AllLessons[i].children[7].firstChild.innerHTML);
+                        let grade = getGrade(AllLessons[i].children[9].innerHTML);
+                        let gpa = getGPA(grade);
+                        htotalGPA += gpa * credit;
+                        htotalGrade += grade * credit;
+                        htotalCredits += credit;
+                    }
+                }
+                console.log(`共查询到 ${totalNum}门课程\n计算了 ${calclulatedNum}门课程\n已获总学分为 ${htotalCredits},百分制均分为 ${htotalGrade/htotalCredits}\n4.8制度绩点为 ${htotalGPA/htotalCredits}`);
+                calclulatedNum=0;
                 for (let i = 0; i < AllLessons.length; i++) {
                     if (judgeLesson(AllLessons[i]) && AllLessons[i].children[9].innerHTML !== '通过' && AllLessons[i].children[9].innerHTML !== '不通过') {
                         calclulatedNum++;
